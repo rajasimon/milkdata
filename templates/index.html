@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="container">
+      <div class="columns is-mobile">
+        {% for shed in sheds %}
+          <div class="column">
+            <div class="box notification is-primary is-light is-shadowless">
+              <h1 class="has-text-centered">{{ shed.name }}</h1>
+            </div>
+            <div class="box is-shadowless notification is-light">
+              <p class="has-text-centered" id="updateTotalShed{{ shed.id }}">{{ shed.children | sum(attribute="value") | round(3)  }}</p>
+            </div>
+            <div id="shed{{ shed.id }}">
+              {% for shed_data in shed.children %}
+                <div class="block">
+                  <p>{{ shed_data.value }}</p>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="field mt-4">
+              <div class="control">
+                <input 
+                  type="number" 
+                  class="input" 
+                  name="value"
+                  placeholder="0.00"
+                  hx-post="{{ url_for('shed_data_create', shed_name=shed.name) }}"
+                  hx-trigger="keyup[keyCode==13]"
+                  hx-target="#shed{{ shed.id }}"
+                  hx-swap="beforeend"
+                  hx-on--after-request="this.value = ''"
+                >
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

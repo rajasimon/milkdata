@@ -1,0 +1,4 @@
+<p class="has-text-centered" id="updateTotalShed{{ shed.id }}" hx-swap-oob="true">{{ shed.children | sum(attribute="value") | round(3)  }}</p>
+<div class="block">
+  <p>{{ shed_data.value }}</p>
+</div>
