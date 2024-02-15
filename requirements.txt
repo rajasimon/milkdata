@@ -3,3 +3,4 @@ django-environ
 django-htmx
 whitenoise
 gunicorn
+sentry-sdk[django]
