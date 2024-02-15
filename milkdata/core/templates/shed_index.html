@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <div class="level is-mobile">
+          <div class="level-left">
+            <h1 class="title is-size-4">Shed</h1>
+          </div>
+          <div class="level-right">
+            <a href="{% url 'shed_create' %}" class="button is-link is-outlined">Create</a>
+          </div>
+        </div>
+        <hr>
+        <div class="columns is-multiline">
+          {% for shed in sheds %}
+            <div class="column is-3">
+              <div class="box">
+                <h1>{{ shed.name }}</h1>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

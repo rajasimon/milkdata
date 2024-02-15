@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-size-4">Create Shop</h1>
+        <hr>
+        <form action="{% url 'shop_create' %}" method="POST">
+          {% csrf_token %}
+          <div class="field">
+            <label for="name" class="label">Shop Name</label>
+            <div class="control">
+              <input type="text" class="input" name="name" placeholder="Enter name of the shop i.e 1">
+            </div>
+          </div>
+          <div class="field">
+            <label for="" class="label">Category</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select name="category" id="">
+                  <option value="1" selected>Store</option>
+                  <option value="2">Line</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="buttons">
+              <button class="button is-link is-fullwidth">Submit</button>
+              <a href="{% url 'prepare' %}" class="button is-fullwidth is-light">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

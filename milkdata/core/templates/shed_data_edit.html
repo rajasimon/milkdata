@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-mobile is-centered">
+      <div class="column">
+        <form action="{% url 'shed_data_edit' shed_data_pk=shed_data.pk  %}" method="POST">
+          {% csrf_token %}
+          <div class="field">
+            <label for="" class="label">Edit Value</label>
+            <div class="control">
+              <input type="text" class="input" value="{{ shed_data.value }}" name="value">
+            </div>
+          </div>
+          <div class="field">
+            <button class="button is-fullwidth is-link" type="submit">Sumbit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

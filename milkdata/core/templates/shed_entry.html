@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load core_extras %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column is-12">
+        <div class="field">
+          <label for="" class="label">Shed</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select 
+                name="shed" 
+                hx-get="{% url 'shed_entry' %}"
+                hx-trigger="change"
+                hx-push-url="true"
+              >
+                {% for each in sheds %}
+                  <option value="{{ each.name }}" {% if each.name == request.GET.shed %}selected{% endif %}>{{ each.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="box is-shadowless notification is-light">
+          <p class="has-text-centered" id="updateTotalShed{{ shed.id }}">{{ sheddatas|shed_data_sum  }}</p>
+        </div>
+        <div id="shed{{ shed.id }}">
+          {% for sheddata in sheddatas %}
+            <div class="block">
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <p>{{ sheddata.value }}</p>
+                </div>
+                <div class="level-right">
+                  <a href="{% url 'shed_data_edit' shed_data_pk=sheddata.pk %}" class="button is-small is-warning is-outlined">Edit</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="field mt-4">
+          <div class="control">
+            <input
+              type="number" 
+              class="input" 
+              name="value"
+              placeholder="0.00"
+              hx-post="{% url 'shed_data_create' shed_name=shed.name %}"
+              hx-trigger="keyup[keyCode==13]"
+              hx-target="#shed{{ shed.id }}"
+              hx-swap="beforeend"
+              hx-on--after-request="this.value = ''"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

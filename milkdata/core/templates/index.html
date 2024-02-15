@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <a href="{% url 'shed_entry' %}">
+          <div class="box">
+            <h1 class="title is-size-4">Entries</h1>
+          </div>
+        </a>
+      </div>
+      <div class="column">
+        <a href="{% url 'shed_entry' %}">
+          <div class="box">
+            <h1 class="title is-size-4">Distribute</h1>
+          </div>
+        </a>
+      </div>
+      <div class="column">
+        <a href="{% url 'shed_index' %}">
+          <div class="box">
+            <h1 class="title is-size-4">Shed</h1>
+          </div>
+        </a>
+      </div>
+      <div class="column">
+        <a href="{% url 'shed_index' %}">
+          <div class="box">
+            <h1 class="title is-size-4">Shop</h1>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
