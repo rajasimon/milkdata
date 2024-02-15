@@ -30,7 +30,7 @@ def shed_entry(request):
     )
 
     if request.htmx:
-        endpoint = reverse("index") + f"?shed={shed_param}"
+        endpoint = reverse("shed_entry") + f"?shed={shed_param}"
         response["HX-Redirect"] = endpoint
 
     return response
