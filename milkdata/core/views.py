@@ -8,6 +8,10 @@ from milkdata.core.helper import get_today_date
 
 
 def index(request):
+    mode = request.GET.get("mode", "browser")
+    if mode == "browser":
+        return render(request, "welcome.html")
+
     return render(request, "index.html")
 
 
@@ -153,8 +157,10 @@ def shop_edit(request, pk):
     shop = Shop.objects.filter(pk=pk).first()
     if request.method == "POST":
         name = request.POST.get("name")
-        category = request.POST.get("category")
+        category = int(request.POST.get("category", 1))
 
+        print(category)
+        shop.name = name
         shop.category = category
         shop.save()
         return HttpResponseRedirect(reverse("shop_index"))
