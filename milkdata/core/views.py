@@ -8,10 +8,6 @@ from milkdata.core.helper import get_today_date
 
 
 def index(request):
-    mode = request.GET.get("mode", "browser")
-    if mode == "browser":
-        return render(request, "welcome.html")
-
     return render(request, "index.html")
 
 
