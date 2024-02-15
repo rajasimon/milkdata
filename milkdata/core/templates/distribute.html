@@ -6,15 +6,15 @@
   <div class="container">
     <div class="level is-mobile">
       <div class="level-left">
-        <h1 class="title is-size-4">Prepare</h1>
+        <h1 class="title is-size-4">Distribute</h1>
       </div>
       <div class="level-right">
-        <p>Total : {{ total_milk }}</p>
+        <p>Total : <span class="has-text-weight-bold">{{ total_milk }}</span></p>
       </div>
     </div>
     <div class="box">
       <h1 class="subtitle">Pockets</h1>
-      <form action="{% url 'prepare' %}" method="POST">
+      <form action="{% url 'distribute' %}" method="POST">
         {% csrf_token %} 
         <div class="field">
           <label for="" class="label">500</label>
@@ -28,7 +28,7 @@
             <input type="text" class="input" name="quarter_litre"  placeholder="Enter quarter litre" value="{% if pocket.quarter_litre %}{{ pocket.quarter_litre }}{% endif %}">
           </div>
         </div>
-        <button class="button is-link is-outlined is-fullwidth">Submit</button>
+        <button class="button is-link is-outlined is-fullwidth">Update</button>
       </form>
     </div>
     {% for shop in shops %}
@@ -38,40 +38,40 @@
             <p class="subtitle">{{ shop.name }}</p>
           </div>
           <div class="level-right">
-            <p>{{ shop.shopdata_set|calculate_litre:request.session.date }}</p>
+            <p class="has-text-weight-bold">{{ shop.shopdata_set|calculate_litre:request.session.date }}</p>
           </div>
         </div>
         <form action="{% url 'shop_data' shop.pk %}" method="POST">
           {% csrf_token %} 
           <input type="hidden" name="shop_pk" value="{{ shop.pk }}">
           <div class="field">
-            <label for="" class="label">500</label>
+            <label for="" class="label">500 <span class="has-text-grey">litre</span></label>
             <div class="control">
-              <input type="text" class="input" name="half_litre" placeholder="Enter half litre" value="{% if shop.shopdata_set|get_date_data_half_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_half_litre:request.session.date }}{% else %}0{% endif %}">
+              <input type="number" class="input" name="half_litre" placeholder="Enter half litre" value="{% if shop.shopdata_set|get_date_data_half_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_half_litre:request.session.date }}{% else %}0{% endif %}">
             </div>
           </div>
           <div class="field">
-            <label for="" class="label">250</label>
+            <label for="" class="label">250 <span class="has-text-grey">litre</span></label>
             <div class="control">
-              <input type="text" class="input" name="quarter_litre"  placeholder="Enter quarter litre" value="{% if shop.shopdata_set|get_date_data_quarter_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_quarter_litre:request.session.date }}{% else %}0{% endif %}">
+              <input type="number" class="input" name="quarter_litre"  placeholder="Enter quarter litre" value="{% if shop.shopdata_set|get_date_data_quarter_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_quarter_litre:request.session.date }}{% else %}0{% endif %}">
             </div>
           </div>
 
           {% if shop.category == 2 %}
             <div class="field">
-              <label for="" class="label">Tray</label>
+              <label for="" class="label">Note</label>
               <div class="control">
-                <input type="text" class="input" name="tray" placeholder="Enter tray count" value="{% if shop.shopdata_set|get_date_data_tray:request.session.date %}{{ shop.shopdata_set|get_date_data_tray:request.session.date }}{% else %}0{% endif %}">
+                <input type="text" class="input" name="note" placeholder="i.e) 2 + 16" value="{% if shop.shopdata_set|get_date_data_note:request.session.date %}{{ shop.shopdata_set|get_date_data_note:request.session.date }}{% endif %}">
               </div>
             </div>
             <div class="field">
               <label for="" class="label">Additional</label>
               <div class="control">
-                <input type="text" class="input" name="additional" placeholder="Enter additional count" value="{% if shop.shopdata_set|get_date_data_additional:request.session.date %}{{ shop.shopdata_set|get_date_data_additional:request.session.date }}{% else %}0{% endif %}">
+                <input type="number" class="input" name="additional" placeholder="Enter additional count" value="{% if shop.shopdata_set|get_date_data_additional:request.session.date %}{{ shop.shopdata_set|get_date_data_additional:request.session.date }}{% else %}0{% endif %}">
               </div>
             </div>
           {% endif %}
-          <button class="button is-link is-outlined is-fullwidth">Submit</button>
+          <button class="button is-link is-outlined is-fullwidth">Update</button>
         </form>
       </div>
     {% endfor %}

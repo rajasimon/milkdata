@@ -73,7 +73,7 @@ def shed_data_create(request, shed_name):
         return render(
             request,
             "shed_data.html",
-            {"shed_data": sheddata, "shed": shed, "sheddatas": sheddatas},
+            {"sheddata": sheddata, "shed": shed, "sheddatas": sheddatas},
         )
     return render(request, "shed_data.html")
 
@@ -92,7 +92,7 @@ def shed_data_edit(request, shed_data_pk):
     return render(request, "shed_data_edit.html", {"shed_data": shed_data})
 
 
-def prepare(request):
+def distribute(request):
     date = request.session["date"]
     sheds = Shed.objects.all()
 
@@ -117,12 +117,17 @@ def prepare(request):
 
         pocket.save()
 
-        return HttpResponseRedirect(reverse("prepare"))
+        return HttpResponseRedirect(reverse("distribute"))
 
     response = render(
         request,
-        "prepare.html",
-        {"sheds": sheds, "total_milk": total_milk, "pocket": pocket, "shops": shops},
+        "distribute.html",
+        {
+            "sheds": sheds,
+            "total_milk": round(total_milk, 3),
+            "pocket": pocket,
+            "shops": shops,
+        },
     )
 
     if request.htmx:
@@ -155,7 +160,6 @@ def shop_edit(request, pk):
         name = request.POST.get("name")
         category = int(request.POST.get("category", 1))
 
-        print(category)
         shop.name = name
         shop.category = category
         shop.save()
@@ -170,23 +174,18 @@ def shop_data(request, shop_pk):
     if request.method == "POST":
         half_litre = int(request.POST.get("half_litre", 0))
         quarter_litre = int(request.POST.get("quarter_litre", 0))
-        additional = int(request.POST.get("additional", 0))
-        tray = int(request.POST.get("tray", 0))
+
+        additional = request.POST.get("additional")
+        if not additional:
+            additional = 0
+        note = request.POST.get("note")
 
         obj, _ = ShopData.objects.get_or_create(shop=shop, date=date)
 
         obj.half_litre = half_litre
         obj.quarter_litre = quarter_litre
         obj.additional = additional
-        obj.tray = tray
-
-        if shop.category == 2:
-            if not half_litre:
-                if tray and additional:
-                    per_tray = 24
-                    total_half_litre = (per_tray * tray) + additional
-                    obj.half_litre = total_half_litre
-
+        obj.note = note
         obj.save()
 
-    return HttpResponseRedirect(reverse("prepare"))
+    return HttpResponseRedirect(reverse("distribute"))

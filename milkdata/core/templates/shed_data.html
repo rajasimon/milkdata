@@ -1,5 +1,12 @@
 {% load core_extras %}
 <p class="has-text-centered" id="updateTotalShed{{ shed.id }}" hx-swap-oob="true">{{ sheddatas|shed_data_sum  }}</p>
 <div class="block">
-  <p>{{ shed_data.value }}</p>
+  <div class="level is-mobile">
+    <div class="level-left">
+      <p>{{ sheddata.value }}</p>
+    </div>
+    <div class="level-right">
+      <a href="{% url 'shed_data_edit' shed_data_pk=sheddata.pk %}" class="button is-small is-warning is-outlined">Edit</a>
+    </div>
+  </div>
 </div>

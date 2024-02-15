@@ -16,7 +16,7 @@ urlpatterns = [
         views.shed_data_edit,
         name="shed_data_edit",
     ),
-    path("prepare/", views.prepare, name="prepare"),
+    path("distribute/", views.distribute, name="distribute"),
     path("shop/", views.shop_index, name="shop_index"),
     path("shop/create/", views.shop_create, name="shop_create"),
     path("shop/edit/<pk>/", views.shop_edit, name="shop_edit"),

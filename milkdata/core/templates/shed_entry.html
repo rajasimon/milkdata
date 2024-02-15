@@ -40,21 +40,27 @@
             </div>
           {% endfor %}
         </div>
-        <div class="field mt-4">
-          <div class="control">
-            <input
-              type="number" 
-              class="input" 
-              name="value"
-              placeholder="0.00"
-              hx-post="{% url 'shed_data_create' shed_name=shed.name %}"
-              hx-trigger="keyup[keyCode==13]"
-              hx-target="#shed{{ shed.id }}"
-              hx-swap="beforeend"
-              hx-on--after-request="this.value = ''"
-            >
+        <form 
+          hx-post="{% url 'shed_data_create' shed_name=shed.name %}"
+          hx-target="#shed{{ shed.id }}"
+          hx-swap="beforeend"
+          hx-on--after-request="this.elements[0].value = ''"
+        >
+          <div class="field mt-6">
+            <div class="control">
+              <input
+                type="number" 
+                class="input" 
+                name="value"
+                step="any"
+                placeholder="0.00"
+              >
+            </div>
           </div>
-        </div>
+          <div class="field">
+            <button class="button is-fullwidth is-link is-light">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

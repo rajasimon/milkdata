@@ -35,4 +35,4 @@ class ShopData(models.Model):
     half_litre = models.IntegerField(null=True, blank=True)
     quarter_litre = models.IntegerField(null=True, blank=True)
     additional = models.IntegerField(null=True, blank=True)
-    tray = models.IntegerField(null=True, blank=True)
+    note = models.CharField(max_length=100, null=True, blank=True)

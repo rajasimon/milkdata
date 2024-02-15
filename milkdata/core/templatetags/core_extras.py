@@ -31,10 +31,10 @@ def get_date_data_quarter_litre(qs, date):
 
 
 @register.filter
-def get_date_data_tray(qs, date):
+def get_date_data_note(qs, date):
     shop_data = qs.filter(date=date).first()
     if shop_data:
-        return shop_data.tray
+        return shop_data.note
 
     return None
 
