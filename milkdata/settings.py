@@ -17,6 +17,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "django-insecure-eirh28fh2ihUIHI(*#f2h)"),
     ALLOWED_HOSTS=(list, ["localhost"]),
+    DATABASE_URL=(str, "sqlite:///db.sqlite3"),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,12 +90,7 @@ WSGI_APPLICATION = "milkdata.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+DATABASES = {"default": env.db()}
 
 
 # Password validation

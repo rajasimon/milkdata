@@ -4,3 +4,4 @@ django-htmx
 whitenoise
 gunicorn
 sentry-sdk[django]
+psycopg2-binary
