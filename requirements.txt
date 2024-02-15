@@ -1,4 +1,4 @@
 Django
 django-environ
-djagno-htmx
+django-htmx
 whitenoise

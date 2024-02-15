@@ -1,7 +1,7 @@
 {
     "name": "Milk Data",
     "short_name": "Milk Data",
-    "start_url": "http://localhost:8000?mode=standalone",
+    "start_url": "https://milkdata-production.up.railway.app?mode=standalone",
     "icons": [
       {
         "src": "/static/images/android-chrome-192x192.png",
