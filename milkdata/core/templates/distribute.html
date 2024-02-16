@@ -31,43 +31,43 @@
         <button class="button is-link is-outlined is-fullwidth">Update</button>
       </form>
     </div>
-    {% for shop in shops %}
+    {% for vendor in vendors %}
       <div class="box">
         <div class="level is-mobile">
           <div class="level-left">
-            <p class="subtitle">{{ shop.name }}</p>
+            <p class="subtitle">{{ vendor.name }}</p>
           </div>
           <div class="level-right">
-            <p class="has-text-weight-bold">{{ shop.shopdata_set|calculate_litre:request.session.date }}</p>
+            <p class="has-text-weight-bold">{{ vendor.vendordata_set|calculate_litre:request.session.date }}</p>
           </div>
         </div>
-        <form action="{% url 'shop_data' shop.pk %}" method="POST">
+        <form action="{% url 'vendor_data' vendor.pk %}" method="POST">
           {% csrf_token %} 
-          <input type="hidden" name="shop_pk" value="{{ shop.pk }}">
+          <input type="hidden" name="vendor_pk" value="{{ vendor.pk }}">
           <div class="field">
             <label for="" class="label">500 <span class="has-text-grey">litre</span></label>
             <div class="control">
-              <input type="number" class="input" name="half_litre" placeholder="Enter half litre" value="{% if shop.shopdata_set|get_date_data_half_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_half_litre:request.session.date }}{% else %}0{% endif %}">
+              <input type="number" class="input" name="half_litre" placeholder="Enter half litre" value="{% if vendor.vendordata_set|get_date_data_half_litre:request.session.date %}{{ vendor.vendordata_set|get_date_data_half_litre:request.session.date }}{% else %}0{% endif %}">
             </div>
           </div>
           <div class="field">
             <label for="" class="label">250 <span class="has-text-grey">litre</span></label>
             <div class="control">
-              <input type="number" class="input" name="quarter_litre"  placeholder="Enter quarter litre" value="{% if shop.shopdata_set|get_date_data_quarter_litre:request.session.date %}{{ shop.shopdata_set|get_date_data_quarter_litre:request.session.date }}{% else %}0{% endif %}">
+              <input type="number" class="input" name="quarter_litre"  placeholder="Enter quarter litre" value="{% if vendor.vendordata_set|get_date_data_quarter_litre:request.session.date %}{{ vendor.vendordata_set|get_date_data_quarter_litre:request.session.date }}{% else %}0{% endif %}">
             </div>
           </div>
 
-          {% if shop.category == 2 %}
+          {% if vendor.category == 2 %}
             <div class="field">
               <label for="" class="label">Note</label>
               <div class="control">
-                <input type="text" class="input" name="note" placeholder="i.e) 2 + 16" value="{% if shop.shopdata_set|get_date_data_note:request.session.date %}{{ shop.shopdata_set|get_date_data_note:request.session.date }}{% endif %}">
+                <input type="text" class="input" name="note" placeholder="i.e) 2 + 16" value="{% if vendor.vendordata_set|get_date_data_note:request.session.date %}{{ vendor.vendordata_set|get_date_data_note:request.session.date }}{% endif %}">
               </div>
             </div>
             <div class="field">
               <label for="" class="label">Additional</label>
               <div class="control">
-                <input type="number" class="input" name="additional" placeholder="Enter additional count" value="{% if shop.shopdata_set|get_date_data_additional:request.session.date %}{{ shop.shopdata_set|get_date_data_additional:request.session.date }}{% else %}0{% endif %}">
+                <input type="number" class="input" name="additional" placeholder="Enter additional count" value="{% if vendor.vendordata_set|get_date_data_additional:request.session.date %}{{ vendor.vendordata_set|get_date_data_additional:request.session.date }}{% else %}0{% endif %}">
               </div>
             </div>
           {% endif %}

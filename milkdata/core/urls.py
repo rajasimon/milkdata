@@ -17,8 +17,8 @@ urlpatterns = [
         name="shed_data_edit",
     ),
     path("distribute/", views.distribute, name="distribute"),
-    path("shop/", views.shop_index, name="shop_index"),
-    path("shop/create/", views.shop_create, name="shop_create"),
-    path("shop/edit/<pk>/", views.shop_edit, name="shop_edit"),
-    path("shop/data/<shop_pk>", views.shop_data, name="shop_data"),
+    path("vendor/", views.vendor_index, name="vendor_index"),
+    path("vendor/create/", views.vendor_create, name="vendor_create"),
+    path("vendor/edit/<pk>/", views.vendor_edit, name="vendor_edit"),
+    path("vendor/data/<vendor_pk>", views.vendor_data, name="vendor_data"),
 ]

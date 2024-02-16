@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 
 
-from milkdata.core.models import Shed, ShedData, Pocket, Shop, ShopData
+from milkdata.core.models import Shed, ShedData, Pocket, Vendor, VendorData
 from milkdata.core.helper import get_today_date
 
 
@@ -97,7 +97,7 @@ def distribute(request):
     sheds = Shed.objects.all()
 
     pocket, _ = Pocket.objects.get_or_create(date=date)
-    shops = Shop.objects.all()
+    vendors = Vendor.objects.all()
 
     total_milk = 0
     for shed in sheds:
@@ -107,7 +107,6 @@ def distribute(request):
     if request.method == "POST":
         half_litre = request.POST.get("half_litre")
         quarter_litre = request.POST.get("quarter_litre")
-        shop_pk = request.POST.get("shop_pk", "")
 
         if half_litre:
             pocket.half_litre = half_litre
@@ -126,7 +125,7 @@ def distribute(request):
             "sheds": sheds,
             "total_milk": round(total_milk, 3),
             "pocket": pocket,
-            "shops": shops,
+            "vendors": vendors,
         },
     )
 
@@ -136,41 +135,41 @@ def distribute(request):
     return response
 
 
-def shop_index(request):
-    shops = Shop.objects.all()
-    return render(request, "shop_index.html", {"shops": shops})
+def vendor_index(request):
+    vendors = Vendor.objects.all()
+    return render(request, "vendor_index.html", {"vendors": vendors})
 
 
-def shop_create(request):
+def vendor_create(request):
     if request.method == "POST":
         name = request.POST.get("name")
         category = request.POST.get("category")
 
-        shop, _ = Shop.objects.get_or_create(name=name)
-        shop.category = category
-        shop.save()
-        return HttpResponseRedirect(reverse("shop_index"))
+        vendor, _ = Vendor.objects.get_or_create(name=name)
+        vendor.category = category
+        vendor.save()
+        return HttpResponseRedirect(reverse("vendor_index"))
 
-    return render(request, "shop_create.html")
+    return render(request, "vendor_create.html")
 
 
-def shop_edit(request, pk):
-    shop = Shop.objects.filter(pk=pk).first()
+def vendor_edit(request, pk):
+    vendor = Vendor.objects.filter(pk=pk).first()
     if request.method == "POST":
         name = request.POST.get("name")
         category = int(request.POST.get("category", 1))
 
-        shop.name = name
-        shop.category = category
-        shop.save()
-        return HttpResponseRedirect(reverse("shop_index"))
+        vendor.name = name
+        vendor.category = category
+        vendor.save()
+        return HttpResponseRedirect(reverse("vendor_index"))
 
-    return render(request, "shop_edit.html", {"shop": shop})
+    return render(request, "vendor_edit.html", {"vendor": vendor})
 
 
-def shop_data(request, shop_pk):
+def vendor_data(request, vendor_pk):
     date = request.session["date"]
-    shop = Shop.objects.filter(pk=shop_pk).first()
+    vendor = Vendor.objects.filter(pk=vendor_pk).first()
     if request.method == "POST":
         half_litre = int(request.POST.get("half_litre", 0))
         quarter_litre = int(request.POST.get("quarter_litre", 0))
@@ -180,7 +179,7 @@ def shop_data(request, shop_pk):
             additional = 0
         note = request.POST.get("note")
 
-        obj, _ = ShopData.objects.get_or_create(shop=shop, date=date)
+        obj, _ = VendorData.objects.get_or_create(vendor=vendor, date=date)
 
         obj.half_litre = half_litre
         obj.quarter_litre = quarter_litre

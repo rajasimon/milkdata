@@ -17,7 +17,7 @@ class Pocket(models.Model):
     quarter_litre = models.IntegerField(null=True, blank=True)
 
 
-class Shop(models.Model):
+class Vendor(models.Model):
     name = models.CharField(max_length=200)
 
     class CategoryChoices(models.IntegerChoices):
@@ -29,8 +29,8 @@ class Shop(models.Model):
     )
 
 
-class ShopData(models.Model):
-    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+class VendorData(models.Model):
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     date = models.DateField()
     half_litre = models.IntegerField(null=True, blank=True)
     quarter_litre = models.IntegerField(null=True, blank=True)
